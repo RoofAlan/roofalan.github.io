@@ -1,80 +1,156 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>AstrConter-Kernel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONE&MSX加密</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            color: #333333;
+            animation: fadeIn 2s ease-in-out;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .header {
+            background-color: #ffdddd;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .world-section, .cpp-section {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+            opacity: 0;
+            animation: fadeInUp 1s ease-out forwards;
+        }
+        .cpp-section {
+            animation-delay: 0.5s;
+        }
+        .cpp-box {
+            background-color: #f5f5f5;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 6px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .cpp-box:hover {
+            transform: translateY(-5px);
+            background-color: #e0e0e0;
+        }
+        .footer {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #ffdddd;
+            text-align: center;
+            border-radius: 4px;
+            opacity: 0;
+            animation: fadeIn 1.5s ease-in-out forwards;
+            animation-delay: 1s;
+        }
+        .hyperlink {
+            color: #ff4444;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        .hyperlink:hover {
+            color: #cc0000;
+        }
+        .image-link {
+            display: block;
+            width: 100%;
+            height: 200px;
+            background-color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out forwards;
+            animation-delay: 1s;
+        }
+        .image-link img {
+            max-width: 100%;
+            max-height: 100%;
+            transition: transform 0.3s ease;
+        }
+        .image-link:hover img {
+            transform: scale(1.05);
+        }
+        .text-content {
+            white-space: pre-wrap;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
-<!--body bgcolor="#6495ED"-->
 <body>
-	<style>
-		a.h1 {
-			display: block;
-			font-size: 35px;
-			color: white;
-			border-radius: 7px;
-			text-align: center;
-			background-color: #007bff;
-			transition: background-color 0.5s;
-		}
-		a.h1:hover {
-			background-color: #0056b3;
-		}
-		p {
-			position: fixed;
-			top: 90px;
-			right: 20px;
-			font-size: 22px;
-		}
-		p.notice_h {
-			position: fixed;
-			top: 58px;
-			right: 70px;
-			font-size: 27px;
-		}
-		a {
-			text-decoration: none;
-			font-size: 30px;
-		}
-		a.btn {
-		    display: inline-block; /* 使链接表现为块级元素 */
-		    padding: 10px 20px; /* 添加内边距 */
-		    background-color: #007bff; /* 设置背景颜色 */
-		    color: white; /* 设置文字颜色 */
-		    text-align: center; /* 文字居中 */
-		    text-decoration: none; /* 去除下划线 */
-		    border-radius: 5px; /* 添加圆角 */
-		    border: none; /* 去除边框 */
-		    font-size: 20px; /* 设置字体大小 */
-		    cursor: pointer; /* 鼠标悬停时显示手型指针 */
-		    transition: background-color 0.3s; /* 平滑背景颜色变化 */
-		}
-		a.btn:hover {
-    			background-color: #0056b3; /* 鼠标悬停时的背景颜色 */
-		}
-		a.brit {
-		    display: inline-block; /* 使链接表现为块级元素 */
-		    padding: 10px 20px; /* 添加内边距 */
-		    /* background-color: #007bff;  设置背景颜色 */
-		    color: white; /* 设置文字颜色 */
-		    text-align: center; /* 文字居中 */
-		    text-decoration: none; /* 去除下划线 */
-		    border-radius: 5px; /* 添加圆角 */
-		    border: none; /* 去除边框 */
-		    font-size: 20px; /* 设置字体大小 */
-		    cursor: pointer; /* 鼠标悬停时显示手型指针 */
-		    transition: color 0.3s; /* 平滑背景颜色变化 */
-		    position: fixed;
-			top: 8px;
-			right: 0;
-		}
-		a.brit:hover {
-    			color: #DCDCDC; /* 鼠标悬停时的背景颜色 */
-		}
-	</style>
-    <a href="./" class="h1">AstrConter Project</a>
-    <a href="https://space.bilibili.com/1424849357" target="_blank" class="brit">B站主页</a>
-    <img src="./ASO-Studio.png" size="50px">
-	<p class="notice_h">| Notice: </p>
-	<p>Nothing here...</p>
+    <div class="container">
+        <div class="header">
+            <h1>欢迎来到ONE&MSX的小网站</h1>
+        </div>
+        
+        <div class="main-content">
+            <div class="world-section">
+                <h2>概述</h2>
+                <div class="text-content">
+                    <p>标题</p>
+                    <p>项目</p>
+                    <ul>
+                        <li>by 西瓜网友 & YZ.</li>
+                        <li>你好</li>
+                        <li>你好</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="cpp-section">
+                <div class="cpp-box">
+                    <h3>加密为</h3>
+                    <a href="https://example.com/c1" class="image-link">
+                        <img src="c1.png" alt="图片1">
+                    </a>
+                     <h3>量身打造</h3>
+                </div>
+                <div class="cpp-box">
+                    <h3>加密为</h3>
+                    <a href="https://example.com/c2" class="image-link">
+                        <img src="c2.png" alt="图片2">
+                    </a>
+                     <h3>量身打造</h3>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <a href="https://t.me/shtoolsNb" class="hyperlink">加入频道</a>
+        </div>
+    </div>
 </body>
 </html>
